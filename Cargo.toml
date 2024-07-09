@@ -1,0 +1,15 @@
+[package]
+name = "threandi"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+# logging
+log = "*"
+env_logger = "*"
+
+# environment
+dotenv = "*"
+
+# std
+chrono = "*"
