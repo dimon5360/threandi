@@ -3,7 +3,6 @@ extern crate log;
 
 use chrono::Local;
 use dotenv::dotenv;
-use service::service::Interface;
 
 mod core;
 mod service;
@@ -22,5 +21,6 @@ fn main() {
 
     version();
 
-    service::provider::new().init().run();
+    let ip = std::env::var("SERVICE_HOST").unwrap();
+    service::provider::new(&ip).run();
 }
