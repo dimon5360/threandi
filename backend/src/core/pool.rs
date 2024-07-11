@@ -1,5 +1,4 @@
 use std::{
-    net::TcpListener,
     sync::{mpsc, Arc, Mutex},
     thread,
 };
@@ -8,7 +7,6 @@ type Job = Box<dyn FnOnce() + Send + 'static>;
 
 pub struct ThreadPool {
     _nthreads: usize,
-    _listener: Option<TcpListener>,
     _workers: Vec<Worker>,
     _sender: Option<mpsc::Sender<Job>>,
 }
@@ -61,12 +59,12 @@ impl Worker {
 
             match message {
                 Ok(job) => {
-                    println!("Worker {id} got a job; executing.");
+                    log::debug!("Worker {id} got a job; executing.");
 
                     job();
                 }
                 Err(_) => {
-                    println!("Worker {id} disconnected; shutting down.");
+                    log::debug!("Worker {id} disconnected; shutting down.");
                     break;
                 }
             }
@@ -82,7 +80,6 @@ impl Worker {
 pub fn new(nthreads: usize) -> ThreadPool {
     ThreadPool {
         _nthreads: nthreads,
-        _listener: None,
         _workers: vec![],
         _sender: None,
     }

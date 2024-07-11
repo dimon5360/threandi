@@ -4,10 +4,12 @@ extern crate log;
 use chrono::Local;
 use dotenv::dotenv;
 
+mod api;
 mod core;
 mod service;
 
-fn version() {
+fn print_version() {
+    env_logger::init();
     dotenv().ok();
 
     let version = env!("CARGO_PKG_VERSION");
@@ -17,10 +19,9 @@ fn version() {
 }
 
 fn main() {
-    env_logger::init();
-
-    version();
+    print_version();
 
     let ip = std::env::var("SERVICE_HOST").unwrap();
-    service::provider::new(&ip).run();
+
+    service::provider::run(&ip);
 }

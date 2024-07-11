@@ -3,14 +3,10 @@ use log;
 use crate::core;
 
 pub trait Interface {
-    fn run(&mut self);
+    fn run(&self);
 }
 
-pub fn new(host: &str) -> Box<dyn Interface> {
+pub fn run(host: &str) {
     log::debug!("create new service");
-
-    let mut core = core::provider::new();
-    core.init(host);
-
-    super::service::new(core)
+    super::service::new(core::provider::new(host)).run();
 }

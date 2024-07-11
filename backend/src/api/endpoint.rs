@@ -1,5 +1,5 @@
 pub trait Interface {}
 
-struct Endpoint;
+pub struct Endpoint;
 
 impl Interface for Endpoint {}

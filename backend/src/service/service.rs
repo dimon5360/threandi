@@ -7,8 +7,8 @@ struct Service {
 }
 
 impl super::provider::Interface for Service {
-    fn run(&mut self) {
-        log::debug!("run service");
+    fn run(&self) {
+        log::debug!("core is running ...");
         self._core.run();
     }
 }
